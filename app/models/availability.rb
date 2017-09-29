@@ -5,24 +5,25 @@ class Availability < ApplicationRecord
   belongs_to :user
 
   # Run compact_times_allowed method before saving an availability to the database.
-  before_save :compact_times_available
+  # before_save :compact_times_available
 
   private
 
-  # Make sure at least one available time is selected.
-  # PRE: times_available exists
-  # POST: if times_available is empty, add an error to errors hash
-  def must_choose_at_least_one_time
-  	if compact_times_available.size <= 0
-  		self.errors[:base] << "Must choose at least one time slot"
-  	end
-  end
 
-  # Delete all nil values from times_available array using ruby's compact method.
-  # PRE: times_available exists
-  # POST: remove nil values from times_available array
-  def compact_times_available
-    self.times_available = self.times_available.compact
-  end
+  # # Make sure at least one available time is selected.
+  # # PRE: times_available exists
+  # # POST: if times_available is empty, add an error to errors hash
+  # def must_choose_at_least_one_time
+  # 	if compact_times_available.size <= 0
+  # 		self.errors[:base] << "Must choose at least one time slot"
+  # 	end
+  # end
+
+  # # Delete all nil values from times_available array using ruby's compact method.
+  # # PRE: times_available exists
+  # # POST: remove nil values from times_available array
+  # def compact_times_available
+  #   self.times_available = self.times_available.compact
+  # end
 
 end
