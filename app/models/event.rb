@@ -1,17 +1,17 @@
 class Event < ApplicationRecord
   # Every event belongs to an 'admin' user, and has many availabilites and 'participants' (users)
-  #   through its availabilities.
+  # through its availabilities.
   # When an event is destroyed, so are all of its related availabilities.
-  belongs_to :owner, class_name: :User, foreign_key: :user_id # admin user
+  belongs_to :owner, class_name: :User # admin user
   has_many :availabilities, dependent: :destroy
   has_many :participants, through: :availabilities, source: :user
 
-  # Run compact_times_allowed method before saving an event to the database.
-  before_save :compact_times_allowed
-  before_save :ensure_times_allowed_has_correct_date
+  # # Run compact_times_allowed method before saving an event to the database.
+  # before_save :compact_times_allowed
+  # before_save :ensure_times_allowed_has_correct_date
 
-  # Ensures data is in an allowable format before adding it to the database
-  validate :name_cannot_be_empty, :must_choose_at_least_one_time, :date_cannot_be_in_the_past
+  # # Ensures data is in an allowable format before adding it to the database
+  # validate :name_cannot_be_empty, :must_choose_at_least_one_time, :date_cannot_be_in_the_past
   
   # Array of DateTime values iterating through every 30 minutes on today's date starting from midnight.
   POSSIBLE_TIMES_CONST = Array.new(48).map.with_index{|x,index| Date.today.to_datetime + index * (1.0/48)}
@@ -25,14 +25,14 @@ class Event < ApplicationRecord
   #   self.times_allowed = self.times_allowed.compact
   # end
   
-  # # Ensures the name field is not empty
-  # # PRE: name exists
-  # # POST: If name is blank, add an error to errors hash.
-  # def name_cannot_be_empty
-  #   if self.name == ""
-  #     self.errors[:base] << "Name cannot be empty"
-  #   end
-  # end
+  # Ensures the name field is not empty
+  # PRE: name exists
+  # POST: If name is blank, add an error to errors hash.
+  def name_cannot_be_empty
+    if self.name == ""
+      self.errors[:base] << "Name cannot be empty"
+    end
+  end
   
   # # Ensures that at least one time is chosen for the event
   # # PRE: times_allowed exists

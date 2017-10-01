@@ -18,18 +18,16 @@ ActiveRecord::Schema.define(version: 20170913170842) do
   create_table "availabilities", force: :cascade do |t|
     t.integer "event_id"
     t.integer "user_id"
+    t.daterange "duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "times_available", default: [], array: true
   end
 
   create_table "events", force: :cascade do |t|
     t.string "name"
-    t.date "date"
+    t.integer "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "times_allowed", default: [], array: true
-    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|

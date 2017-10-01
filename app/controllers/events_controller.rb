@@ -7,7 +7,7 @@ class EventsController < ApplicationController
   # PRE: None
   # POST: None
   def index
-    @events = Event.all.order(:date)
+    @events = Event.all
     @admin_events = @events.select{|event| event.owner == current_user}
     @other_events = @events.reject{|event| event.owner == current_user}
   end
@@ -26,7 +26,6 @@ class EventsController < ApplicationController
   # POST: An event object is created
   def new
     @event = Event.new
-    @event.user_id = current_user.id
     @possible_times = Event::POSSIBLE_TIMES_CONST
   end
 
@@ -35,11 +34,8 @@ class EventsController < ApplicationController
   # POST: A new event is created, or an error message is shown
   def create
     @event = Event.new(event_params)
-    if !(Date.valid_date?(event_params['date(1i)'].to_i,event_params['date(2i)'].to_i,event_params['date(3i)'].to_i))
-      @event.errors.add(:base,"Invalid date error")
-      @possible_times = Event::POSSIBLE_TIMES_CONST
-      render :new
-    elsif @event.save
+    @event.owner = current_user
+    if @event.save
       redirect_to(events_path)
     else
       @possible_times = Event::POSSIBLE_TIMES_CONST
@@ -91,7 +87,7 @@ class EventsController < ApplicationController
   # PRE: None
   # POST: None
   def event_params
-    params.require(:event).permit(:name,:date,:user_id,:times_allowed => [])
+    params.require(:event).permit(:name)
   end
 
   # Define a variable with the current hour format setting. If none is set, default to 12.
