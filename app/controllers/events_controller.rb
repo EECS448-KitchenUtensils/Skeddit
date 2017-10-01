@@ -17,7 +17,6 @@ class EventsController < ApplicationController
   # POST: None
   def show
     @event = Event.find(params[:id])
-    @times_allowed = @event.times_allowed.map(&:to_datetime)
     @participants = @event.participants
   end
 
