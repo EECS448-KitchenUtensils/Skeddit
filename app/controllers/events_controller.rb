@@ -42,32 +42,13 @@ class EventsController < ApplicationController
     end
   end
 
-  # Find event object to update and store possible_times in a var.
-  # PRE: None
-  # POST: None
-  def edit
-    @event = Event.find(params[:id])
-    @possible_times = (Event::POSSIBLE_TIMES_CONST).map{|time| time.change( :year => @event.date.year,
-                                                                            :month => @event.date.month,
-                                                                            :day => @event.date.day)}
-  end
-
   # Define what to do when trying to update an event.
   # PRE: The event with the specific id exists
   # POST: Event is updated with new day, times, or name
   def update
     @event = Event.find(params[:id])
-    if !(Date.valid_date?(event_params['date(1i)'].to_i,event_params['date(2i)'].to_i,event_params['date(3i)'].to_i))
-      @event.errors.add(:base,"Invalid date error")
-      @possible_times = Event::POSSIBLE_TIMES_CONST
-      render :edit
-    elsif @event.update(event_params)
-      redirect_to(events_path)
-    else
-      @possible_times = (Event::POSSIBLE_TIMES_CONST).map{|time| time.change( :year => @event.date.year,
-                                                                              :month => @event.date.month,
-                                                                              :day => @event.date.day)}
-      render :edit
+    if @event.update(event_params)
+      redirect_to(event_path(@event))
     end
   end
 

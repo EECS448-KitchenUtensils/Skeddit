@@ -23,4 +23,14 @@
 			</tr>
 		</tbody>
 	</table>
+
+	<% if current_user == @event.owner%>
+		<h3> Admin Tools </h3>
+		<%= form_for @event, html: {class: 'form-inline'} do |f|%>
+			<%= f.text_field :name, class: 'form-control', placeholder: 'Event Name', value: ''%>
+			<%= f.submit "Change Name", class: 'btn btn-primary'%>
+		<% end %>
+	<% end %>
+
+
 </div>
