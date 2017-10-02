@@ -11,8 +11,6 @@ class AvailabilitiesController < ApplicationController
   # PRE: None
   # POST: None
   def new
-    @availability = Availability.find_or_initialize_by(event_id: params[:event_id], user_id: current_user.id)
-    @times_allowed = @availability.event.times_allowed.map(&:to_datetime)
   end
 
   # Creates and stores a new availability, associated with a given event, in the database
@@ -20,11 +18,11 @@ class AvailabilitiesController < ApplicationController
   # POST: A new availability is stored in the database
   def create
     @availability = Availability.new(availability_params)
+    @availability.user = current_user
     if @availability.save
-      redirect_to (events_path)
+      redirect_to (event_path(availability_params[:event_id]))
     else
-      @times_allowed = @availability.event.times_allowed.map(&:to_datetime)
-      render :new
+      redirect_to (event_path(availability_params[:event_id]))
     end
   end
 
@@ -68,7 +66,7 @@ class AvailabilitiesController < ApplicationController
   private
 
   def availability_params
-    params.require(:availability).permit(:event_id,:user_id,:times_available => [])
+    params.require(:availability).permit(:event_id, :start, :end)
   end
 
   def check_format

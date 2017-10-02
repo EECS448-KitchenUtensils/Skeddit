@@ -2,9 +2,9 @@ class Event < ApplicationRecord
   # Every event belongs to an 'admin' user, and has many availabilites and 'participants' (users)
   # through its availabilities.
   # When an event is destroyed, so are all of its related availabilities.
-  belongs_to :owner, class_name: :User # admin user
-  has_many :availabilities, dependent: :destroy
-  has_many :participants, through: :availabilities, class_name: :User
+  belongs_to :owner, class_name: :User
+  has_many :availabilities
+  has_many :participants, through: :availabilities, source: :User
 
   # # Run compact_times_allowed method before saving an event to the database.
   # before_save :compact_times_allowed

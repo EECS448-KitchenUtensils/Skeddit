@@ -1,8 +1,8 @@
 class Availability < ApplicationRecord
   # Each Availablity 'belongs to' an event and a user.
   # If an availability's user or event is destroyed, so is the availability.
+  belongs_to :user
   belongs_to :event
-  has_one :participant, class_name: :user
 
   # Run compact_times_allowed method before saving an availability to the database.
   # before_save :compact_times_available

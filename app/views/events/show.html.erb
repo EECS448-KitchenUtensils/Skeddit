@@ -16,10 +16,12 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><%= @event.owner.email %></td>
-				<% @event.owner.availabilities.each do |a| %>
-					<td> <%= a.duration %> </td>
+				<td><strong>Owner</strong></td>
+				<td>
+				<% @event.availabilities.where(user: @event.owner).each do |a| %>
+					 <%= a.start %> <strong>to</strong> <%= a.end %> <br />
 				<% end %>
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -41,6 +43,7 @@
 			End Time: <%= f.datetime_select :end, minute_step: 30, ampm: true %>
 			<br />
 			<br />
+			<%= f.hidden_field :event_id, value: @event.id %>
 			<%= f.submit "Add Timeslot", class: 'btn btn-info'%>
 		<% end %>
 	<% end %>
