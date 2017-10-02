@@ -18,7 +18,8 @@ ActiveRecord::Schema.define(version: 20170913170842) do
   create_table "availabilities", force: :cascade do |t|
     t.integer "event_id"
     t.integer "user_id"
-    t.daterange "duration"
+    t.datetime "start"
+    t.datetime "end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

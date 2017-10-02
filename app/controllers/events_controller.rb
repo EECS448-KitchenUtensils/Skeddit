@@ -17,7 +17,7 @@ class EventsController < ApplicationController
   # POST: None
   def show
     @event = Event.find(params[:id])
-    @participants = @event.participants
+    @availabilities = @event.availabilities
   end
 
   # Create an instance var for a new event for the events#new pages
