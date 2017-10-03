@@ -29,7 +29,7 @@ To set up Rails with Postgres, follow [this guide](https://www.digitalocean.com/
 
 ### Configuration
 
-Once your Rails environment is set up, run `git clone https://github.com/GitGud-KU/Skeddit.git`
+Once your Rails environment is set up, run `git clone https://github.com/EECS448-KitchenUtensils/Skeddit.git`
 
 Then, add your database settings into the config/database.yml file.
 
@@ -45,7 +45,7 @@ With the databse set up, Skeddit should be ready to run! Type `rail s` to launch
 
 [Bootswatch](https://bootswatch.com/)
 
-[Gemfile Gems](https://github.com/GitGud-KU/Skeddit/blob/master/Gemfile)
+[Gemfile Gems](https://github.com/EECS448-KitchenUtensils/Skeddit/blob/master/Gemfile)
 
 [Devise](https://github.com/plataformatec/devise)
 
