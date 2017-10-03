@@ -18,6 +18,16 @@ Skeddit is a modular event planner and scheduler created in Ruby on Rails. Its s
 [Mason Wilde](https://github.com/masonwilde)
 * UI, CSS, Views
 
+### Continued By
+
+[Armaan Amirani](https://github.com/aamirani)
+
+[Zane Cersovsky](https://github.com/zjcers)
+
+[Jack Weber](https://github.com/jackdweber)
+
+[Taylor Walenczyk](https://github.com/twalenczyk)
+
 
 # Installation
 
