@@ -2,8 +2,8 @@ class CreateTasks < ActiveRecord::Migration[5.1]
   def change
     create_table :tasks do |t|
       t.text :name
-      t.integer :event_id
-      t.integer :participant_id
+      t.belongs_to :event, foreign_key: true
+      t.references :user, foreign_key: true
     end
   end
 end
