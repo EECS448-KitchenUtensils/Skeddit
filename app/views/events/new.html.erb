@@ -12,8 +12,12 @@
 	</div>
 <% end %>
 
-<%= simple_form_for @event do |f| %>
-  <%= f.input :name %>
-
-  <%= f.button :submit %>
+<%= form_for @event do |f| %>
+  	<%= f.text_field :name %>
+	<br />
+	<%= f.datetime_select :start %>
+	<br />
+	<%= f.datetime_select :end %>
+	<br />
+ 	<%= f.submit 'Go' %>
 <% end %>

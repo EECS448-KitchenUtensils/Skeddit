@@ -67,7 +67,7 @@ class EventsController < ApplicationController
   # PRE: None
   # POST: None
   def event_params
-    params.require(:event).permit(:name)
+    params.require(:event).permit(:name, :start, :end)
   end
 
   # Define a variable with the current hour format setting. If none is set, default to 12.

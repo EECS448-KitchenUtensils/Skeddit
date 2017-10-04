@@ -4,7 +4,6 @@ class Event < ApplicationRecord
   # When an event is destroyed, so are all of its related availabilities.
   belongs_to :owner, class_name: :User
   has_many :availabilities
-  has_many :participants, through: :availabilities, source: :user
 
   # # Run compact_times_allowed method before saving an event to the database.
   # before_save :compact_times_allowed

@@ -18,16 +18,15 @@ ActiveRecord::Schema.define(version: 20170913170842) do
   create_table "availabilities", force: :cascade do |t|
     t.integer "event_id"
     t.integer "user_id"
-    t.time "start_time"
-    t.time "end_time"
-    t.date "start_date"
-    t.date "end_date"
+    t.datetime "start"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "events", force: :cascade do |t|
     t.string "name"
+    t.datetime "start"
+    t.datetime "end"
     t.integer "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
