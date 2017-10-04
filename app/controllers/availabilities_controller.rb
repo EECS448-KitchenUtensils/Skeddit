@@ -66,7 +66,7 @@ class AvailabilitiesController < ApplicationController
   private
 
   def availability_params
-    params.require(:availability).permit(:event_id, :start, :end)
+    params.require(:availability).permit(:event_id, :start_date, :end_date, :start_time, :end_time)
   end
 
   def check_format
