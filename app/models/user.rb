@@ -8,6 +8,7 @@ class User < ApplicationRecord
   # If a user is destroyed, all of their events and availabilities are destroyed as well.
   has_many :events, dependent: :destroy
   has_many :attending_events, through: :availabilities, source: :event
+  belongs_to :availabilities
 
   # # Check to see if a user said they were available for a specified event at a specified time.
   # # PRE: None
