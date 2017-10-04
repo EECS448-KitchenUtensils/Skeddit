@@ -4,26 +4,26 @@ class Availability < ApplicationRecord
   belongs_to :user
   belongs_to :event
 
+  validate :dates_are_valid
+  
+
   # Run compact_times_allowed method before saving an availability to the database.
   # before_save :compact_times_available
 
   private
 
+  # VALIDATION Makes sure they have a date entered.
+  def dates_are_valid
+    if ((start_date.strftime("%m/%d/%Y") rescue ArgumentError) == ArgumentError)
+      self.errors[:start_date] << "Invalid Date"
+    end   
+  end
 
-  # # Make sure at least one available time is selected.
-  # # PRE: times_available exists
-  # # POST: if times_available is empty, add an error to errors hash
-  # def must_choose_at_least_one_time
-  # 	if compact_times_available.size <= 0
-  # 		self.errors[:base] << "Must choose at least one time slot"
-  # 	end
-  # end
+  # TODO
+  # VALIDATION Check that times are chronological
 
-  # # Delete all nil values from times_available array using ruby's compact method.
-  # # PRE: times_available exists
-  # # POST: remove nil values from times_available array
-  # def compact_times_available
-  #   self.times_available = self.times_available.compact
-  # end
+  # TODO
+  # VALIDATION Check that times do not overlap with your other times. May or may not do this?
+
 
 end
