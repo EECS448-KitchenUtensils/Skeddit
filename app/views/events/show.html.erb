@@ -11,52 +11,33 @@
 	<h3>Availabilities</h3>
 	<table class="table table-striped">
 		<thead>
-			<th style="width:20%;">User</th>
-			<th style="width:40%;">Start</th>
-			<th style="width:40%;">End</th>
+			<th style="width:20%;">Time Slot</th>
+			<th style="width:60%;">Users Attending</th>
+			<th style="width:20%;">Add?</th>
 		</thead>
 		<tbody>
-			<tr>
-				<td><strong>Owner</strong></td>
-				<td>
-				<% @event.availabilities.where(user: @event.owner).each do |a| %>
-					 <%= a.start_time.strftime("%I:%M %p") %> on <%= a.start_date.strftime("%m/%d/%Y") %> <br />
-				<% end %>
-				</td>
-				<td>
-				<% @event.availabilities.where(user: @event.owner).each do |a| %>
-					 <%= a.end_time.strftime("%I:%M %p") %> on <%= a.end_date.strftime("%m/%d/%Y") %> <br />
-				<% end %>
-				</td>
-			</tr>
+			<% @event.availabilities.each do |a| %>
+				<tr>
+					<td><%= a.start.strftime('%H:%M %p on %d/%m/%Y') %></td>
+					<td>
+						<% a.users.each do |u| %>
+							<%= u.email %>, 
+						<% end %>
+					</td>
+					<td>
+						
+					</td>
+				</tr>
+			<% end %>
 		</tbody>
 	</table>
 
-	<% if current_user == @event.owner%>
+	<% if current_user == @event.owner %>
 		<h3> Admin Tools </h3>
 		<p class="lead"> Event Name </p>
 		<%= form_for @event, html: {class: 'form-inline'} do |f|%>
 			<%= f.text_field :name, class: 'form-control', placeholder: 'Event Name', value: ''%>
 			<%= f.submit "Change Name", class: 'btn btn-primary'%>
-		<% end %>
-
-		<br />
-	<% end %>
-	<% if current_user%>
-		<p class="lead"> Add Timeslot </p>
-		<%= form_for Availability.new do |f| %>
-			<br />
-			<br />
-			Start Date: <%= f.date_field :start_date, min: Date.today, value: Date.today%>
-			Start Time: <%= f.time_select :start_time, minute_step: 30, ampm: true %>
-			<br />
-			<br />
-			Start Date: <%= f.date_field :end_date, min: Date.today, value: Date.today%>
-			End Time: <%= f.time_select :end_time, minute_step: 30, ampm:true %>
-			<br />
-			<br />
-			<%= f.hidden_field :event_id, value: @event.id %>
-			<%= f.submit "Add Timeslot", class: 'btn btn-info'%>
 		<% end %>
 	<% end %>
 
