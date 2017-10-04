@@ -4,7 +4,6 @@ class CreateAvailabilities < ActiveRecord::Migration[5.1]
       t.integer :event_id
       t.integer :user_id
       t.datetime :start
-      t.datetime :end
       t.timestamps
     end
   end

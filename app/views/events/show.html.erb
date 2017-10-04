@@ -11,40 +11,33 @@
 	<h3>Availabilities</h3>
 	<table class="table table-striped">
 		<thead>
-			<th style="width:20%;">User</th>
-			<th style="width:80%;">Available</th>
+			<th style="width:20%;">Time Slot</th>
+			<th style="width:60%;">Users Attending</th>
+			<th style="width:20%;">Add?</th>
 		</thead>
 		<tbody>
-			<tr>
-				<td><strong>Owner</strong></td>
-				<td>
-				<% @event.availabilities.where(user: @event.owner).each do |a| %>
-					 <%= a.start %> <strong>to</strong> <%= a.end %> <br />
-				<% end %>
-				</td>
-			</tr>
+			<% @event.availabilities.each do |a| %>
+				<tr>
+					<td><%= a.start.strftime('%H:%M %p on %d/%m/%Y') %></td>
+					<td>
+						<% a.users.each do |u| %>
+							<%= u.email %>, 
+						<% end %>
+					</td>
+					<td>
+						
+					</td>
+				</tr>
+			<% end %>
 		</tbody>
 	</table>
 
-	<% if current_user == @event.owner%>
+	<% if current_user == @event.owner %>
 		<h3> Admin Tools </h3>
 		<p class="lead"> Event Name </p>
 		<%= form_for @event, html: {class: 'form-inline'} do |f|%>
 			<%= f.text_field :name, class: 'form-control', placeholder: 'Event Name', value: ''%>
 			<%= f.submit "Change Name", class: 'btn btn-primary'%>
-		<% end %>
-
-		<br />
-		<p class="lead"> Add Timeslot </p>
-		<%= form_for Availability.new do |f| %>
-			Start Time: <%= f.datetime_select :start, minute_step: 30, ampm: true %>
-			<br />
-			<br />
-			End Time: <%= f.datetime_select :end, minute_step: 30, ampm: true %>
-			<br />
-			<br />
-			<%= f.hidden_field :event_id, value: @event.id %>
-			<%= f.submit "Add Timeslot", class: 'btn btn-info'%>
 		<% end %>
 	<% end %>
 

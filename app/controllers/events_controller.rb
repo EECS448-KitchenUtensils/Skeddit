@@ -34,12 +34,14 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.owner = current_user
-    if @event.save
-      redirect_to(events_path)
-    else
-      @possible_times = Event::POSSIBLE_TIMES_CONST
-      render :new
+    (@event.start.to_i .. @event.end.to_i).step(30.minute) do |date|
+      puts(Time.at(date))
+      a = Availability.new(start: Time.at(date))
+      a.event = @event
+      a.users << current_user
+      a.save
     end
+    @event.save
   end
 
   # Define what to do when trying to update an event.
@@ -67,7 +69,7 @@ class EventsController < ApplicationController
   # PRE: None
   # POST: None
   def event_params
-    params.require(:event).permit(:name)
+    params.require(:event).permit(:name, :start, :end)
   end
 
   # Define a variable with the current hour format setting. If none is set, default to 12.
