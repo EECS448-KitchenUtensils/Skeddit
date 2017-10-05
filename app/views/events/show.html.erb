@@ -95,9 +95,13 @@
 					</tr>
 				<% end %>
 				<tr>
-					<td colspan="2" class="lead">New Task</td>
+					<td colspan="2" class="lead">
+						<%= simple_form_for [@event, Task.create] do |form| %>
+							<%= form.text_field :name, :required => true, :placeholder => "Task name", class: "form-control" %>
+					</td>
 					<td>
-						<%= link_to "Add", new_event_task_path(@event), class: "btn btn-success" %>
+							<%= form.button :submit, class: "btn btn-success" %>
+						<% end %>
 					</td>
 				</tr>
 			</tbody>
