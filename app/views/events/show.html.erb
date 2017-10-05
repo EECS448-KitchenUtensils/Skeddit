@@ -87,10 +87,14 @@
 			<tbody>
 				<% @tasks.each do |task| %>
 					<tr>
-						<td>task.name</td>
-						<td>task.owner</td>
 						<td>
-							<%= link_to "Edit", edit_event_task_path, class: "btn btn-primary btn-warning btn-sm" %>
+							<%= task.name %>
+						</td>
+						<td>
+							<%= task.owner || "No one assigned yet" %>
+						</td>
+						<td>
+							
 						</td>
 					</tr>
 				<% end %>
