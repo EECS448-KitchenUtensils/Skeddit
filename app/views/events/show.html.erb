@@ -94,6 +94,12 @@
 						</td>
 					</tr>
 				<% end %>
+				<tr>
+					<td colspan="2" class="lead">New Task</td>
+					<td>
+						<%= link_to "Add", new_event_task_path(@event), class: "btn btn-success" %>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	<% end %>
