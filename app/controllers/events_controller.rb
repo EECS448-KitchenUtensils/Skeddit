@@ -41,7 +41,9 @@ class EventsController < ApplicationController
       a.users << current_user
       a.save
     end
-    @event.save
+    if @event.save
+      redirect_to(events_path)
+    end
   end
 
   # Define what to do when trying to update an event.

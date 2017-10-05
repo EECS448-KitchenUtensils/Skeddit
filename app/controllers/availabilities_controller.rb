@@ -22,7 +22,7 @@ class AvailabilitiesController < ApplicationController
     if @availability.save
       redirect_to (event_path(availability_params[:event_id]))
     else
-      redirect_to (event_path(availability_params[:event_id]))
+      redirect_to event_path(availability_params[:event_id]), flash: {notice: "Availability not saved!"}
     end
   end
 

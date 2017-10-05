@@ -8,12 +8,17 @@
 		<%= @event.owner.email %>
 	</p>
 	<br>
-	<h3>Availabilities</h3>
+	<h3>Availabilities: <%= @event.availabilities.distinct.count %></h3>
 	<table class="table table-striped">
 		<thead>
 			<th style="width:20%;">Time Slot</th>
 			<th style="width:60%;">Users Attending</th>
+			<% if current_user == @event.owner %>
+			<th style="width:10%;">Leave?</th>
+			<th style="width:10%;">Add?</th>
+			<% else %>
 			<th style="width:20%;">Add?</th>
+			<% end %>
 		</thead>
 		<tbody>
 			<% @event.availabilities.each do |a| %>
@@ -24,14 +29,20 @@
 							<%= u.email %>, 
 						<% end %>
 					</td>
+					<% if current_user == @event.owner %>
 					<td>
-						
+						<% a.users.each do |u| %>
+							<%= link_to "Leave", availability_path(a), :confirm => "Are you sure?", :method => :delete, class: "btn btn-primary btn-danger btn-sm" %>
+						<% end %>
+					</td>
+					<% end %> <!-- Add condition for non-admin leaving -->
+					<td>
+						<%= link_to "Join", availability_path(a), method: :post, class: "btn btn-primary btn-warning btn-sm" %>
 					</td>
 				</tr>
 			<% end %>
 		</tbody>
 	</table>
-
 	<% if current_user == @event.owner %>
 		<h3> Admin Tools </h3>
 		<p class="lead"> Event Name </p>

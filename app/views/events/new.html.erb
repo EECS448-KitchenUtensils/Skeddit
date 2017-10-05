@@ -13,11 +13,11 @@
 <% end %>
 
 <%= form_for @event do |f| %>
-  	<%= f.text_field :name %>
+  	<%= f.text_field :name, class: 'form-control' %>
 	<br />
 	<%= f.datetime_select :start %>
 	<br />
 	<%= f.datetime_select :end %>
 	<br />
- 	<%= f.submit 'Go' %>
+ 	<%= f.submit 'Go', class: 'btn btn-primary btn-success btn-info-lg'%>
 <% end %>
