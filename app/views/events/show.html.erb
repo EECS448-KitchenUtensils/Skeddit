@@ -86,17 +86,20 @@
 			</thead>
 			<tbody>
 				<% @tasks.each do |task| %>
-					<tr>
-						<td>
-							<%= task.name %>
-						</td>
-						<td>
-							<%= task.owner || "No one assigned yet" %>
-						</td>
-						<td>
-							
-						</td>
-					</tr>
+					<%= simple_form_for [@event, task], :method => :patch do |form| %>
+						<tr>
+							<td>
+								<%= form.text_field :name, :value => task.name, class: "form-control" %>
+							</td>
+							<td>
+								<%= task.owner || "No one assigned yet" %>
+							</td>
+							<td>
+								<%= form.button :submit, :value => "Update", class: "btn btn-primary btn-warning btn-sm"%>
+								<%= link_to "Delete", event_task_path(@event, task), :method => :delete, class: "btn btn-primary btn-danger btn-sm" %>
+							</td>
+						</tr>
+					<% end %>
 				<% end %>
 				<tr>
 					<td colspan="2" class="lead">
