@@ -26,4 +26,18 @@ class TasksController < ApplicationController
     end
     redirect_to @event
   end
+
+  # Updates a task in the database
+  # PRE: The task exists and the form input is sane
+  # POST: The task is updated
+  def update
+    task_id = params[:id]
+    @task = @event.tasks.where(id: task_id).first
+    proposed_name = params[:task].permit(:name)[:name]
+    @task.name = proposed_name if !proposed_name.blank? else @task.name
+    unless @task.save
+      flash[:error] = "Unable to save task"
+    end
+    redirect_to @event
+  end
 end
