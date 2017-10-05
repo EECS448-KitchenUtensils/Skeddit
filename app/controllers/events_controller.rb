@@ -17,6 +17,7 @@ class EventsController < ApplicationController
   # POST: None
   def show
     @event = Event.find(params[:id])
+    @tasks = @event.tasks.all
     @availabilities = @event.availabilities
     @dates = []
 
