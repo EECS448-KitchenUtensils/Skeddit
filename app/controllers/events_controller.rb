@@ -18,6 +18,16 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @availabilities = @event.availabilities
+    @dates = []
+
+    @availabilities.each do |a|
+
+      if !(@dates.include?(a.start.to_date))
+        @dates << a.start.to_date
+      end
+
+    end
+
   end
 
   # Create an instance var for a new event for the events#new pages

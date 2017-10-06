@@ -26,22 +26,15 @@ class AvailabilitiesController < ApplicationController
     end
   end
 
-  # Redirects to a page to edit an availability
-  # PRE: The availability exists
-  # POST: None
   def edit
     @availability = Availability.find(params[:id])
     @times_allowed = @availability.event.times_allowed.map(&:to_datetime)
   end
 
-  # Edits a given availability
-  # PRE: The availability exists
-  # POST: Changes are made to the availability in the database
   def update
     @availability = Availability.find(params[:id])
     @availability.user_id = availability_update_params[:user_id]
     @availability.save
-    
   end
 
   # Destroys an availability
@@ -49,15 +42,28 @@ class AvailabilitiesController < ApplicationController
   # POST: The availability is removed from the database
   def destroy
     @availability = Availability.find(params[:id])
+    event_id = @availability.event.id
     @availability.destroy
-    redirect_to(events_path)
+    redirect_to(event_path(event_id))
   end
 
-  # Redirects to a page showing the availability
-  # PRE: None
-  # POST: None
+
   def show
     @availability = Availability.find(params[:id])
+  end
+
+  def leave
+    @availability = Availability.find(params[:availability_id])
+    @user = User.find(params[:user_id])
+    @availability.users.delete(@user)
+    redirect_to(event_path(@availability.event.id))
+  end
+
+  def join
+    @availability = Availability.find(params[:availability_id])
+    @user = User.find(params[:user_id])
+    @availability.users << @user
+    redirect_to(event_path(@availability.event.id))
   end
 
   private
@@ -67,7 +73,7 @@ class AvailabilitiesController < ApplicationController
   end
 
   def availability_update_params
-    params.require(:availability).permit(:user_id)
+    params.require(:availability).permit(:user_id, :availability_id)
   end
 
   def check_format

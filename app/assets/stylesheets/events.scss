@@ -5,3 +5,18 @@
 .checkbox {
   display: block;
 }
+
+.availability-block{
+  display:flex;
+  padding:10px;
+  flex-wrap:wrap;
+  margin:10px;
+
+  .buttons{
+    display:flex;
+
+    form{
+      margin: 20px 5px 0px 5px;
+    }
+  }
+}

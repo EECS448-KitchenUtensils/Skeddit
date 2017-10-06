@@ -9,40 +9,53 @@
 	</p>
 	<br>
 	<h3>Availabilities: <%= @event.availabilities.distinct.count %></h3>
-	<table class="table table-striped">
-		<thead>
-			<th style="width:20%;">Time Slot</th>
-			<th style="width:60%;">Users Attending</th>
-			<% if current_user == @event.owner %>
-			<th style="width:10%;">Leave?</th>
-			<th style="width:10%;">Add?</th>
-			<% else %>
-			<th style="width:20%;">Add?</th>
-			<% end %>
-		</thead>
-		<tbody>
-			<% @event.availabilities.each do |a| %>
-				<tr>
-					<td><%= a.start.strftime('%H:%M %p on %d/%m/%Y') %></td>
-					<td>
-						<% a.users.each do |u| %>
-							<%= u.email %>, 
+
+	<div >
+	<% @dates.each do |d|%>
+		<hr>
+		<h3><%= d %></h3>
+		<hr>
+		<div class="availability-block">
+		<% @availabilities.each do |a|%>
+			<% if a.start.to_date == d%>
+				<div style="margin:10px; padding:10px; border-radius:3px;
+				<% if a.users.include?(current_user) %>
+					color:black;
+					background:lightblue;
+				<% else %>
+					background:grey;
+				<% end %>
+				">
+					<%= a.start.strftime('%H:%M %p') %><br />
+					<% a.users.each do |u| %>
+						<%= u.email %><br />
+					<% end %>
+
+					<% if current_user%>
+					<div class="buttons">
+						<% if a.users.include?(current_user)%>
+							<%= form_tag url_for(:controller => 'availabilities', :action => 'leave') do %>
+								<%= hidden_field_tag :availability_id, a.id%>
+								<%= hidden_field_tag :user_id, current_user.id%>
+								<%= submit_tag("Leave", class: "btn btn-warning")%>
+							<% end %>
+						<% else %>
+							<%= form_tag url_for(:controller => 'availabilities', :action => 'join') do %>
+								<%= hidden_field_tag :availability_id, a.id%>
+								<%= hidden_field_tag :user_id, current_user.id%>
+								<%= submit_tag("Join", class: "btn btn-success")%>
+							<% end %>
 						<% end %>
-					</td>
-					<% if current_user == @event.owner %>
-					<td>
-						<% a.users.each do |u| %>
-							<%= link_to "Leave", availability_path(a), :confirm => "Are you sure?", :method => :delete, class: "btn btn-primary btn-danger btn-sm" %>
-						<% end %>
-					</td>
-					<% end %> <!-- Add condition for non-admin leaving -->
-					<td>
-						<%= link_to "Join", availability_path(a), method: :post, class: "btn btn-primary btn-warning btn-sm" %>
-					</td>
-				</tr>
+					</div>
+					<% end %>
+				</div>
 			<% end %>
-		</tbody>
-	</table>
+		<% end %>
+		</div>
+	<% end %>
+	</div>
+
+
 	<% if current_user == @event.owner %>
 		<h3> Admin Tools </h3>
 		<p class="lead"> Event Name </p>
