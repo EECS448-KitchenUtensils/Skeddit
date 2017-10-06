@@ -1,5 +1,4 @@
 <h2>Your Events</h2>
-<%= link_to "Add Event", new_event_path, class: "btn btn-success btn-lg btn-block" %>
 <% if !@admin_events.empty? %>
 <table class="table table-striped">
 	<thead>
@@ -16,6 +15,13 @@
 				<%= link_to "Destroy", event_path(event), method: :delete, class: "btn btn-danger btn-sm", :confirm => "Delete this event?" %></td>
 		</tr>
 		<% end %>
+		<tr>
+			<td>
+			</td>
+			<td>
+				<%= link_to "Add Event", new_event_path, class: "btn btn-success btn-sm" %>
+			</td>
+		</tr>
 	</tbody>
 </table>
 <% elsif current_user == nil%>
