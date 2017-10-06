@@ -69,11 +69,11 @@
 						<%= task.name %>
 					</td>
 					<td>
-						<% if task.owner %>
-							<%= task.owner %>
+						<% if task.user %>
+							<%= task.user.email %>
 						<% else %>
 							<%= simple_form_for [@event, task], :method => :patch do |form| %>
-								<%= form.hidden_field :owner, :value => current_user %>
+								<%= form.hidden_field :user, :value => current_user.id %>
 								<%= form.button :submit, :value => "Sign up", class: "btn btn-primary btn-success btn-sm" %>
 							<% end %>
 						<% end %>
@@ -115,7 +115,7 @@
 								<%= form.text_field :name, :value => task.name, class: "form-control" %>
 							</td>
 							<td>
-								<%= task.owner || "No one assigned yet" %>
+								<%= task.user || "No one assigned yet" %>
 							</td>
 							<td>
 								<%= form.button :submit, :value => "Update", class: "btn btn-primary btn-warning btn-sm"%>

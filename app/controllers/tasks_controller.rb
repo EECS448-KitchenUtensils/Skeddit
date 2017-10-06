@@ -26,12 +26,19 @@ class TasksController < ApplicationController
     redirect_to @event
   end
 
-  # Updates a task in the database
+  # Updates a task in the database (used for both task assignment and name change)
   # PRE: The task is loaded and the form input is sane
   # POST: The task is updated
   def update
     proposed_name = params[:task].permit(:name)[:name]
-    @task.name = proposed_name if !proposed_name.blank? else @task.name
+    if !proposed_name.blank?
+      @task.name = proposed_name
+    end
+    proposed_user_id = params[:task].permit(:owner)[:owner]
+    proposed_user = User.find(proposed_user_id)
+    if current_user == proposed_user
+      @task.user = proposed_user
+    end
     unless @task.save
       flash[:error] = "Unable to save task"
     end
