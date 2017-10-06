@@ -97,15 +97,6 @@
 			<%= f.submit "Change Name", class: 'btn btn-primary'%>
 		<% end %>
 
-		<br />
-		<p class="lead"> Add Timeslot </p>
-		<%= form_for Availability.new do |f| %>
-			Start Time: <%= f.datetime_select :start, minute_step: 30, ampm: true %>
-			<br />
-			<br />
-			<%= f.hidden_field :event_id, value: @event.id %>
-			<%= f.submit "Add Timeslot", class: 'btn btn-info'%>
-		<% end %>
 		<br/>
 		<p class="lead"> Edit Tasks </p>
 		<table class="table table-striped">
@@ -122,7 +113,7 @@
 								<%= form.text_field :name, :value => task.name, class: "form-control" %>
 							</td>
 							<td>
-								<%= task.user || "No one assigned yet" %>
+								<%= task.user&.email || "No one assigned yet" %>
 							</td>
 							<td>
 								<%= form.button :submit, :value => "Update", class: "btn btn-primary btn-warning btn-sm"%>
