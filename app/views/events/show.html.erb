@@ -70,9 +70,6 @@
 			Start Time: <%= f.datetime_select :start, minute_step: 30, ampm: true %>
 			<br />
 			<br />
-			End Time: <%= f.datetime_select :end, minute_step: 30, ampm: true %>
-			<br />
-			<br />
 			<%= f.hidden_field :event_id, value: @event.id %>
 			<%= f.submit "Add Timeslot", class: 'btn btn-info'%>
 		<% end %>
