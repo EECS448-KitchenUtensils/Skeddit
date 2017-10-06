@@ -1,5 +1,5 @@
 <h2>Your Events</h2>
-<% if !@admin_events.empty? %>
+<% if current_user %>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -19,6 +19,7 @@
 			<td>
 			</td>
 			<td>
+				
 				<%= link_to "Add Event", new_event_path, class: "btn btn-success btn-sm" %>
 			</td>
 		</tr>

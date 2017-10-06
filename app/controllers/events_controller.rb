@@ -43,6 +43,7 @@ class EventsController < ApplicationController
   # PRE: None
   # POST: A new event is created, or an error message is shown
   def create
+
     @event = Event.new(event_params)
     @event.owner = current_user
     (@event.start.to_i .. @event.end.to_i).step(30.minute) do |date|
@@ -52,8 +53,11 @@ class EventsController < ApplicationController
       a.users << current_user
       a.save
     end
+
     if @event.save
       redirect_to(events_path)
+    else
+      render :new
     end
   end
 
