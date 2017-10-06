@@ -37,7 +37,7 @@ class TasksController < ApplicationController
     
     proposed_user_id = params[:task].permit(:user)[:user]
     proposed_user = nil
-    if proposed_user_id != ""
+    if !proposed_user_id.blank?
       proposed_user = User.find(proposed_user_id)
     end
     if @task.user == nil || current_user == @task.user
