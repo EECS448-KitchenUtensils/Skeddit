@@ -56,6 +56,32 @@
 	</div>
 
 
+	<% if current_user != @event.owner %>
+		<h3>Tasks</h3>
+		<table class="table table-striped">
+			<thead>
+				<th>Name</th>
+				<th>Current Assignee</th>
+			</thead>
+			<tbody>
+				<% @tasks.each do |task| %>
+					<td>
+						<%= task.name %>
+					</td>
+					<td>
+						<% if task.owner %>
+							<%= task.owner %>
+						<% else %>
+							<%= simple_form_for [@event, task], :method => :patch do |form| %>
+								<%= form.hidden_field :owner, :value => current_user %>
+								<%= form.button :submit, :value => "Sign up", class: "btn btn-primary btn-success btn-sm" %>
+							<% end %>
+						<% end %>
+				<% end %>
+			</tbody>
+		</table>
+	<% end %>
+
 	<% if current_user == @event.owner %>
 		<h3> Admin Tools </h3>
 		<p class="lead"> Event Name </p>
@@ -101,7 +127,7 @@
 				<tr>
 					<td colspan="2" class="lead">
 						<%= simple_form_for [@event, Task.create] do |form| %>
-							<%= form.text_field :name, :required => true, :placeholder => "Task name", class: "form-control" %>
+							<%= form.text_field :name, :placeholder => "Task name", class: "form-control" %>
 					</td>
 					<td>
 							<%= form.button :submit, class: "btn btn-success" %>
