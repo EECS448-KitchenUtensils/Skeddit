@@ -70,9 +70,18 @@
 					</td>
 					<td>
 						<% if task.user %>
-							<%= task.user.email %>
+							<% if task.user == current_user %> 
+								<%= simple_form_for [@event, task], :method => :patch, class: "form-inline" do |form| %>
+									You
+									<%= form.hidden_field :user, :value => "" %>
+									<%= form.button :submit, :value => "Unassign", class: "btn btn-primary btn-danger btn-sm" %>
+								<% end %>
+							<% else %>
+								<%= task.user.email %>
+							<% end %>
 						<% else %>
-							<%= simple_form_for [@event, task], :method => :patch do |form| %>
+							<%= simple_form_for [@event, task], :method => :patch, class: "form-inline" do |form| %>
+								No one has signed up yet
 								<%= form.hidden_field :user, :value => current_user.id %>
 								<%= form.button :submit, :value => "Sign up", class: "btn btn-primary btn-success btn-sm" %>
 							<% end %>
