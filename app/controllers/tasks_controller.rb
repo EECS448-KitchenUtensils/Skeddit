@@ -11,7 +11,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(params[:task].permit(:name).merge(:event => @event))
     unless @task.save
-      flash[:error] = "Unable to save task"  
+      flash[:alert] = "Unable to save task"  
     end
     redirect_to @event
   end
@@ -21,7 +21,7 @@ class TasksController < ApplicationController
   # POST: Either the task is deleted if it existed, or an error is returned to the user
   def destroy
     unless @task.destroy
-      flash[:error] = "Unable to destroy task"
+      flash[:alert] = "Unable to destroy task"
     end
     redirect_back fallback_location: @event
   end
@@ -31,20 +31,24 @@ class TasksController < ApplicationController
   # POST: The task is updated
   def update
     proposed_name = params[:task].permit(:name)[:name]
-    if !proposed_name.blank?
+    proposed_user_id = params[:task].permit(:user)[:user]
+    if proposed_name.blank? && proposed_user_id.blank?
+      flash[:alert] = "Unable to save task"
+      redirect_to @event
+      return
+    end
+
+    unless proposed_name.empty?
       @task.name = proposed_name
     end
-    
-    proposed_user_id = params[:task].permit(:user)[:user]
-    proposed_user = nil
-    if !proposed_user_id.blank?
+    unless proposed_user_id.blank?
       proposed_user = User.find(proposed_user_id)
-    end
-    if @task.user == nil || current_user == @task.user
-      @task.user = proposed_user
+      if @task.user == nil || current_user == @task.user
+        @task.user = proposed_user
+      end
     end
     unless @task.save
-      flash[:error] = "Unable to save task"
+      flash[:alert] = "Unable to save task"
     end
     redirect_to @event
   end
@@ -58,7 +62,7 @@ class TasksController < ApplicationController
     task_id = params[:id]
     @task = @event.tasks.where(id: task_id).first
     unless @task
-      flash[:error] = "Unable to load task"
+      flash[:alert] = "Unable to load task"
       redirect_to @event
     end
   end
