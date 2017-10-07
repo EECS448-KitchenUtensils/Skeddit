@@ -101,6 +101,7 @@
 		</thead>
 		<tbody>
 			<% @tasks.each do |task| %>
+			<tr>
 				<td>
 					<%= task.name %>
 				</td>
@@ -122,6 +123,8 @@
 							<%= form.button :submit, :value => "Sign up", class: "btn btn-primary btn-success btn-sm" %>
 						<% end %>
 					<% end %>
+				</td>
+			</tr>
 			<% end %>
 		</tbody>
 	</table>
