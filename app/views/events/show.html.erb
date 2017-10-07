@@ -74,11 +74,20 @@
 		<%= hidden_field_tag :event_id, @event.id%>
 		<%= hidden_field_tag :last_date, @last_date%>
 		<p> Start time: </p>
-		<%= select_datetime(@first_date, ampm: true, minute_step: 30, prefix: '_start')%>
+		<% if session[:hour_format] == 24%>
+			<%= select_datetime(@first_date, minute_step: 30, prefix: '_start')%>
+		<% else %>
+			<%= select_datetime(@first_date, ampm: true, minute_step: 30, prefix: '_start')%>
+		<% end %>
 		<br />
 		<br />
 		<p> End time: </p>
-		<%= select_datetime(@last_date, ampm: true, minute_step: 30, prefix: '_end')%>
+		<% if session[:hour_format] == 24%>
+			<%= select_datetime(@last_date, minute_step: 30, prefix: '_end')%>
+		<% else %>
+			<%= select_datetime(@last_date, ampm: true, minute_step: 30, prefix: '_end')%>
+		<% end %>
+			
 		<br />
 		<br />
 		<%= submit_tag 'Go', class: 'btn btn-primary btn-success btn-info-lg'%>
