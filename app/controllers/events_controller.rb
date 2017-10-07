@@ -14,7 +14,12 @@ class EventsController < ApplicationController
   # PRE: None
   # POST: None
   def show
-    @event = Event.find(params[:id])
+    begin
+      @event = Event.find(params[:id])
+    rescue
+      render template:"shared/404"
+      return
+    end
     @tasks = @event.tasks.all
     @availabilities = @event.availabilities
     @dates = []
