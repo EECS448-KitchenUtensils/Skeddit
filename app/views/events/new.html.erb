@@ -16,11 +16,19 @@
   	<%= f.text_field :name, class: 'form-control', placeholder: "Event Name" %>
 	<br />
 	<p> Start time: </p>
+	<% if session[:hour_format] == 24 %>
+	<%= f.datetime_select :start, minute_step: 30, ampm: false %>
+	<% else %>
 	<%= f.datetime_select :start, minute_step: 30, ampm: true %>
+	<% end %>
 	<br />
 	<br />
 	<p> End time: </p>
+	<% if session[:hour_format] == 24 %>
+	<%= f.datetime_select :end, minute_step: 30, ampm: false %>
+	<% else %>
 	<%= f.datetime_select :end, minute_step: 30, ampm: true %>
+	<% end %>
 	<br />
 	<br />
  	<%= f.submit 'Go', class: 'btn btn-primary btn-success btn-info-lg'%>
