@@ -1,7 +1,5 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, :only => [:new, :create]
-  before_action :check_format
-  before_action :check_possible_times, :only => [:new, :create, :edit, :update]
 
   # Create an instance var of all of the events for use in the events#index page
   # PRE: None
@@ -36,7 +34,6 @@ class EventsController < ApplicationController
   # POST: An event object is created
   def new
     @event = Event.new
-    @possible_times = Event::POSSIBLE_TIMES_CONST
   end
 
   # Define what to do when creating a new event
@@ -89,16 +86,5 @@ class EventsController < ApplicationController
     params.require(:event).permit(:name, :start, :end)
   end
 
-  # Define a variable with the current hour format setting. If none is set, default to 12.
-  # PRE: None
-  # POST: None
-  def check_format
-    @hour_format = session[:hour_format] || 12
-  end
 
-  # PRE: None
-  # POST: None
-  def check_possible_times
-    @possible_times = Event::POSSIBLE_TIMES_CONST
-  end
 end
