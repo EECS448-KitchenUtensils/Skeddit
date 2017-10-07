@@ -8,7 +8,7 @@ class EventsController < ApplicationController
     @events = Event.all
     @admin_events = @events.select{|event| event.owner == current_user}
     @other_events = @events.reject{|event| event.owner == current_user}
-    @tasks = Task.where(user_id: current_user.id)
+    @tasks = Task.where(user_id: current_user&.id)
   end
 
   # Create an instance var of the event with the specified id for the events#show page
