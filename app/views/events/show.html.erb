@@ -16,7 +16,9 @@
 		<h3><%= d %></h3>
 		<hr>
 		<div class="availability-block">
+		<% @first_date = @availabilities.first.start%>
 		<% @availabilities.each do |a|%>
+			<% @last_date = a.start  + 30.minute%>
 			<% if a.start.to_date == d%>
 				<div style="margin:10px; padding:10px; border-radius:3px;
 				<% if a.users.include?(current_user) %>
@@ -55,6 +57,20 @@
 	<% end %>
 	</div>
 
+	<h3>Add more:</h3>
+	<%= form_tag availabilites_make_path do %>
+		<%= hidden_field_tag :event_id, @event.id%>
+		<%= hidden_field_tag :last_date, @last_date%>
+		<p> Start time: </p>
+		<%= select_datetime(@first_date, ampm: true, minute_step: 30, prefix: '_start')%>
+		<br />
+		<br />
+		<p> End time: </p>
+		<%= select_datetime(@last_date, ampm: true, minute_step: 30, prefix: '_end')%>
+		<br />
+		<br />
+		<%= submit_tag 'Go', class: 'btn btn-primary btn-success btn-info-lg'%>
+	<% end %>
 
 	<h3>Tasks</h3>
 	<table class="table table-striped">

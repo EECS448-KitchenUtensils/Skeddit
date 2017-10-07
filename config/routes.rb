@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :availabilities
   post 'availabilites/leave', to: 'availabilities#leave'
   post 'availabilites/join', to: 'availabilities#join'
+  post 'availabilites/make', to: 'availabilities#make'
+  
 
   get 'reformat_time', to: 'application#reformat_time'
 
