@@ -49,8 +49,7 @@ class EventsController < ApplicationController
 
     @event = Event.new(event_params)
     @event.owner = current_user
-    (@event.start.to_i .. @event.end.to_i).step(30.minute) do |date|
-      puts(Time.at(date))
+    (@event.start.to_i .. (@event.end.to_i - 30.minute)).step(30.minute) do |date|
       a = Availability.new(start: Time.at(date))
       a.event = @event
       a.users << current_user

@@ -66,6 +66,36 @@ class AvailabilitiesController < ApplicationController
     redirect_to(event_path(@availability.event.id))
   end
 
+  def run
+    puts 'hi'
+  end
+
+  def make
+    @event = Event.find(params[:event_id])
+
+    _start = DateTime.new(params['_start']['year'].to_i, params['_start']['month'].to_i, params['_start']['day'].to_i, params['_start']['hour'].to_i, params['_start']['minute'].to_i)
+    _end = DateTime.new(params['_end']['year'].to_i, params['_end']['month'].to_i, params['_end']['day'].to_i, params['_end']['hour'].to_i, params['_end']['minute'].to_i)
+    
+    if _start >= _end
+      flash[:alert] = "Times are not chronological"
+      redirect_to(event_path(params[:event_id]))
+      return
+    end
+    if _start <= params[:last_date]
+      flash[:alert] = "You can only add availabilites after the last time."
+      redirect_to(event_path(params[:event_id]))
+      return
+    end
+    
+    (_start.to_i .. (_end.to_i - 30.minute)).step(30.minute) do |date|
+      a = Availability.new(start: Time.at(date))
+      a.event = @event
+      a.save
+    end
+
+    redirect_to(event_path(params[:event_id]))
+  end
+
   private
 
   def availability_params
