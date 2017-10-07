@@ -8,8 +8,16 @@
 		<%= @event.owner.email %>
 	</p>
 	<br>
-	<h3>Availabilities: <%= @event.availabilities.distinct.count %></h3>
 
+	<% $a = Array.new %>
+	<% @availabilities.each do |a| %>
+		<% a.users.each do |u| %>
+			<% $a.push(u.email) %>
+		<% end %>
+	<% end %> 
+
+	<h4>Participants: <%= $a.uniq.count %></h4>
+	<h4>Availabilities: <%= @event.availabilities.distinct.count %></h4>
 	<div >
 	<% @dates.each do |d|%>
 		<hr>
@@ -28,7 +36,11 @@
 					background:grey;
 				<% end %>
 				">
-					<%= a.start.strftime('%H:%M %p') %><br />
+					<% if session[:hour_format] == 24 %>
+					<%= a.start.strftime('%H:%M') %><br />
+					<% else %>
+					<%= a.start.strftime('%l:%M %p') %><br />
+					<% end %>
 					<% a.users.each do |u| %>
 						<%= u.email %><br />
 					<% end %>
