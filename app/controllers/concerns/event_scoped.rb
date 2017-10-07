@@ -6,6 +6,8 @@ module EventScoped
     def owns_event
         unless @event.owner == current_user
             redirect_to events_path, :alert => "Must be event owner to modify!"
+            return false
         end
+        return true
     end
 end

@@ -34,19 +34,22 @@ class TasksController < ApplicationController
   # PRE: The task is loaded and the form input is sane
   # POST: The task is updated
   def update
-    proposed_name = params[:task].permit(:name)[:name]
-    proposed_user_id = params[:task].permit(:user)[:user]
-    if proposed_name.blank? && proposed_user_id.blank?
-      flash[:alert] = "Unable to save task"
-      redirect_to @event
-      return
-    end
-
-    unless proposed_name.empty?
-      @task.name = proposed_name
-    end
-    unless proposed_user_id.blank?
-      proposed_user = User.find(proposed_user_id)
+    permitted_params = params[:task].permit(:name, :user)
+    if permitted_params.key?("name")
+      if owns_event
+        name = permitted_params[:name]
+        if name.blank?
+          flash[:alert] = "Task name must not be empty"
+        else
+          @task.name = name
+        end
+      end
+    elsif permitted_params.key?("user")
+      proposed_user_id = permitted_params[:user]
+      proposed_user = nil
+      unless proposed_user_id.blank?
+        proposed_user = User.find(proposed_user_id)
+      end
       if @task.user == nil || current_user == @task.user
         @task.user = proposed_user
       end
