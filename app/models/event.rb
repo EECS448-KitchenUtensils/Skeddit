@@ -4,7 +4,7 @@ class Event < ApplicationRecord
   # When an event is destroyed, so are all of its related availabilities.
   belongs_to :owner, class_name: :User
   has_many :availabilities
-  has_many :tasks
+  has_many :tasks, dependent: :destroy
 
   # Validations
   validate :name_cannot_be_empty, :date_cannot_be_in_the_past
