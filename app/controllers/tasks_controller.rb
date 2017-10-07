@@ -23,7 +23,7 @@ class TasksController < ApplicationController
     unless @task.destroy
       flash[:error] = "Unable to destroy task"
     end
-    redirect_to @event
+    redirect_back fallback_location: @event
   end
 
   # Updates a task in the database (used for both task assignment and name change)

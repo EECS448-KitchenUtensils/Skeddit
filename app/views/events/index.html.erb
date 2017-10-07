@@ -71,3 +71,33 @@
 	</div>
 </div>
 <% end %>
+<!-- Print out the tasks for the current user -->
+<h2>Your Assigned Tasks</h2>
+<% if @tasks.any? %>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Event</th>
+			<th>Task</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @tasks.each do |task| %>
+		<tr>
+			<td>
+				<%= task.event.name %>
+			</td>
+			<td>
+				<%= task.name %>
+			</td>
+			<td>
+				<%= link_to "Unassign", event_task_path(task.event, task), method: :delete, class: "btn btn-danger btn-sm" %>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<% else %>
+<i>You are not assigned to any tasks.</i>
+<% end %>
