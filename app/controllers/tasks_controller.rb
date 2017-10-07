@@ -10,8 +10,12 @@ class TasksController < ApplicationController
   # POST: Either a task is created in the database, or an error is returned to the user
   def create
     @task = Task.new(params[:task].permit(:name).merge(:event => @event))
-    unless @task.save
-      flash[:alert] = "Unable to save task"  
+    if @task.name.blank?
+      flash[:alert] = "Task must have a name"
+    else
+      unless @task.save
+        flash[:alert] = "Unable to save task"  
+      end
     end
     redirect_to @event
   end
