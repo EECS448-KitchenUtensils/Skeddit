@@ -72,3 +72,10 @@ body {
 select {
   color: black;
 }
+.alert{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  margin:auto;
+  z-index: 9001;
+}
