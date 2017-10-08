@@ -57,7 +57,7 @@ class TasksController < ApplicationController
     unless @task.save
       flash[:alert] = "Unable to save task"
     end
-    redirect_to @event
+    redirect_back fallback_location: @event
   end
 
   private
