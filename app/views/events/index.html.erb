@@ -93,7 +93,10 @@
 				<%= task.name %>
 			</td>
 			<td>
-				<%= link_to "Unassign", event_task_path(task.event, task), method: :delete, class: "btn btn-danger btn-sm" %>
+			<%= simple_form_for [task.event, task], :method => :patch, class: "form-inline" do |form| %>
+				<%= form.hidden_field :user, :value => "" %>
+				<%= form.button :submit, :value => "Unassign", class: "btn btn-primary btn-danger btn-sm" %>
+			<% end %>
 			</td>
 		</tr>
 		<% end %>
