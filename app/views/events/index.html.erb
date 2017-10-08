@@ -72,6 +72,7 @@
 </div>
 <% end %>
 <!-- Print out the tasks for the current user -->
+<% if current_user %>
 <h2>Your Assigned Tasks</h2>
 <% if @tasks.any? %>
 <table class="table table-striped">
@@ -100,4 +101,5 @@
 </table>
 <% else %>
 <i>You are not assigned to any tasks.</i>
+<% end %>
 <% end %>
