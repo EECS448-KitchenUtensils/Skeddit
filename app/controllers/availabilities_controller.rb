@@ -7,36 +7,6 @@ class AvailabilitiesController < ApplicationController
     redirect_to (events_path)
   end
 
-  # Redirects to a page for creation of an availability
-  # PRE: None
-  # POST: None
-  def new
-  end
-
-  # Creates and stores a new availability, associated with a given event, in the database
-  # PRE: None
-  # POST: A new availability is stored in the database
-  def create
-    @availability = Availability.new(availability_params)
-    @availability.user = current_user
-    if @availability.save
-      redirect_to (event_path(availability_params[:event_id]))
-    else
-      redirect_to event_path(availability_params[:event_id]), flash: {notice: "Availability not saved!"}
-    end
-  end
-
-  def edit
-    @availability = Availability.find(params[:id])
-    @times_allowed = @availability.event.times_allowed.map(&:to_datetime)
-  end
-
-  def update
-    @availability = Availability.find(params[:id])
-    @availability.user_id = availability_update_params[:user_id]
-    @availability.save
-  end
-
   # Destroys an availability
   # PRE: The availability exists
   # POST: The availability is removed from the database
@@ -47,11 +17,9 @@ class AvailabilitiesController < ApplicationController
     redirect_to(event_path(event_id))
   end
 
-
-  def show
-    @availability = Availability.find(params[:id])
-  end
-
+  # Removes a user from an availability
+  # PRE: None
+  # POST: User specified will be free of his duty.
   def leave
     @availability = Availability.find(params[:availability_id])
     @user = User.find(params[:user_id])
@@ -59,6 +27,9 @@ class AvailabilitiesController < ApplicationController
     redirect_to(event_path(@availability.event.id))
   end
 
+  # Adds a user to an availability
+  # PRE: None
+  # POST: One more user will belong to an availability.
   def join
     @availability = Availability.find(params[:availability_id])
     @user = User.find(params[:user_id])
@@ -66,6 +37,9 @@ class AvailabilitiesController < ApplicationController
     redirect_to(event_path(@availability.event.id))
   end
 
+  # Copies availabilities from one day to a new one.
+  # PRE: Days is after last availability in an event
+  # POST: New day will be created with identicly times from date specified.
   def copydays
     @event = Event.find(params[:event_id])
     d_arr = params["date_o"].split('-')
@@ -86,6 +60,9 @@ class AvailabilitiesController < ApplicationController
     redirect_to(event_path(params[:event_id]))
   end
 
+  # Make more availabilities.
+  # PRE: The new start time is after the last availability time.
+  # POST: New availabilities will be added to the event.
   def make
     @event = Event.find(params[:event_id])
 
