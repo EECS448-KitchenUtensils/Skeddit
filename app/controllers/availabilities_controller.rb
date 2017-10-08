@@ -66,8 +66,24 @@ class AvailabilitiesController < ApplicationController
     redirect_to(event_path(@availability.event.id))
   end
 
-  def run
-    puts 'hi'
+  def copydays
+    @event = Event.find(params[:event_id])
+    d_arr = params["date_o"].split('-')
+    date = DateTime.new(d_arr[0].to_i, d_arr[1].to_i, d_arr[2].to_i, 0, 0)
+    #check for errors.
+    if DateTime.new(params["date"]["year"].to_i, params["date"]["month"].to_i, params["date"]["day"].to_i, 0, 0) < @event.availabilities.last.start
+      flash[:alert] = 'Day already exists.'
+      redirect_to(event_path(params[:event_id]))
+      return
+    end
+    @availabilities_to_copy = @event.availabilities.where('start BETWEEN ? AND ?', date.beginning_of_day, date.end_of_day).all
+    @availabilities_to_copy.each do |a|
+      @new_a = Availability.new
+      @new_a.start = DateTime.new(params["date"]["year"].to_i, params["date"]["month"].to_i, params["date"]["day"].to_i, a.start.hour, a.start.min)
+      @event.availabilities << @new_a
+      @new_a.save
+    end
+    redirect_to(event_path(params[:event_id]))
   end
 
   def make

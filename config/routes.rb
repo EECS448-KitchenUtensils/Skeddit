@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post 'availabilites/leave', to: 'availabilities#leave'
   post 'availabilites/join', to: 'availabilities#join'
   post 'availabilites/make', to: 'availabilities#make'
+  post 'availabilites/copydays', to: 'availabilities#copydays'
   
 
   get 'reformat_time', to: 'application#reformat_time'

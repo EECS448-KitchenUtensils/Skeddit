@@ -22,6 +22,13 @@
 	<% @dates.each do |d|%>
 		<hr>
 		<h3><%= d %></h3>
+		<p>Cop to new day: </p>
+		<%= form_tag url_for(:controller => 'availabilities', :action => 'copydays') do %>
+			<%= select_date(Date.today)%>
+			<%= hidden_field_tag :date_o, d %>
+			<%= hidden_field_tag :event_id, @event.id %>
+			<%= submit_tag('Add', class: "btn btn-primary") %>
+		<% end %>
 		<hr>
 		<div class="availability-block">
 		<% @first_date = @availabilities.first.start%>
