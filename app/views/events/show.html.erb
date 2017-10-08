@@ -22,14 +22,16 @@
 	<% @dates.each do |d|%>
 		<hr>
 		<h3><%= d %></h3>
-		<p>Cop to new day: </p>
-		<%= form_tag url_for(:controller => 'availabilities', :action => 'copydays') do %>
-			<%= select_date(Date.today)%>
-			<%= hidden_field_tag :date_o, d %>
-			<%= hidden_field_tag :event_id, @event.id %>
-			<%= submit_tag('Add', class: "btn btn-primary") %>
+		<% if @event.owner == current_user %>
+			<p>Copy to a new day: </p>
+			<%= form_tag url_for(:controller => 'availabilities', :action => 'copydays') do %>
+				<%= select_date(Date.today)%>
+				<%= hidden_field_tag :date_o, d %>
+				<%= hidden_field_tag :event_id, @event.id %>
+				<%= submit_tag('Add', class: "btn btn-primary") %>
+			<% end %>
+			<hr>
 		<% end %>
-		<hr>
 		<div class="availability-block">
 		<% @first_date = @availabilities.first.start%>
 		<% @availabilities.each do |a|%>
@@ -76,30 +78,6 @@
 	<% end %>
 	</div>
 
-	<h3>Add more:</h3>
-	<%= form_tag availabilites_make_path do %>
-		<%= hidden_field_tag :event_id, @event.id%>
-		<%= hidden_field_tag :last_date, @last_date%>
-		<p> Start time: </p>
-		<% if session[:hour_format] == 24%>
-			<%= select_datetime(@first_date, minute_step: 30, prefix: '_start')%>
-		<% else %>
-			<%= select_datetime(@first_date, ampm: true, minute_step: 30, prefix: '_start')%>
-		<% end %>
-		<br />
-		<br />
-		<p> End time: </p>
-		<% if session[:hour_format] == 24%>
-			<%= select_datetime(@last_date, minute_step: 30, prefix: '_end')%>
-		<% else %>
-			<%= select_datetime(@last_date, ampm: true, minute_step: 30, prefix: '_end')%>
-		<% end %>
-			
-		<br />
-		<br />
-		<%= submit_tag 'Go', class: 'btn btn-primary btn-success btn-info-lg'%>
-	<% end %>
-
 	<h3>Tasks</h3>
 	<table class="table table-striped">
 		<thead>
@@ -123,12 +101,14 @@
 						<% else %>
 							<%= task.user.email %>
 						<% end %>
-					<% else %>
+					<% elsif current_user %>
 						<%= simple_form_for [@event, task], :method => :patch, class: "form-inline" do |form| %>
 							No one has signed up yet
 							<%= form.hidden_field :user, :value => current_user.id %>
 							<%= form.button :submit, :value => "Sign up", class: "btn btn-primary btn-success btn-sm" %>
 						<% end %>
+					<% else %>
+						No one has signed up yet
 					<% end %>
 				</td>
 			</tr>
@@ -142,6 +122,30 @@
 		<%= form_for @event, html: {class: 'form-inline'} do |f|%>
 			<%= f.text_field :name, class: 'form-control', placeholder: 'Event Name', value: ''%>
 			<%= f.submit "Change Name", class: 'btn btn-primary'%>
+		<% end %>
+
+		<h3>Add Availabilities</h3>
+		<%= form_tag availabilites_make_path do %>
+			<%= hidden_field_tag :event_id, @event.id%>
+			<%= hidden_field_tag :last_date, @last_date%>
+			<p> Start time: </p>
+			<% if session[:hour_format] == 24%>
+				<%= select_datetime(@first_date, minute_step: 30, prefix: '_start')%>
+			<% else %>
+				<%= select_datetime(@first_date, ampm: true, minute_step: 30, prefix: '_start')%>
+			<% end %>
+			<br />
+			<br />
+			<p> End time: </p>
+			<% if session[:hour_format] == 24%>
+				<%= select_datetime(@last_date, minute_step: 30, prefix: '_end')%>
+			<% else %>
+				<%= select_datetime(@last_date, ampm: true, minute_step: 30, prefix: '_end')%>
+			<% end %>
+				
+			<br />
+			<br />
+			<%= submit_tag 'Go', class: 'btn btn-primary btn-success btn-info-lg'%>
 		<% end %>
 
 		<br/>
