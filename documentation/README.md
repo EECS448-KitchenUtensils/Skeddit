@@ -2,7 +2,7 @@
 
 Skeddit is a modular event planner and scheduler created in Ruby on Rails. Its simplistic design makes it easy to navigate, create, view, join, and manage your events. Skeddit supports account creation, and it can run on any machine with access to the same database, and find the same events.
 
-[Website](http://skeddit.gitgud-ku.com)
+[Website](https://eventplanner.zjcers.com/)
 
 ### Team Members
 
@@ -17,6 +17,16 @@ Skeddit is a modular event planner and scheduler created in Ruby on Rails. Its s
 
 [Mason Wilde](https://github.com/masonwilde)
 * UI, CSS, Views
+
+### Continued By
+
+[Armaan Amirani](https://github.com/aamirani)
+
+[Zane Cersovsky](https://github.com/zjcers)
+
+[Jack Weber](https://github.com/jackdweber)
+
+[Taylor Walenczyk](https://github.com/twalenczyk)
 
 
 # Installation
@@ -60,3 +70,11 @@ Clone the Skeddit repository to your computer.
 Open documentation/git_gud_documentation/index.html to browse the code that we wrote.
 
 Open documentation/full_app_documentation/index.html to browse the code for this entire app.
+
+### Product Backlog
+
+The product backlog for project 2 was realized as Github Projects. We broke each feature on the EECS wiki into a project and then parts of that feature into cards/issues that got walked across the swimlanes in each project.
+
+### Meeting Log
+
+The required meeting log was kept in a Github wiki page attached to this repository.
