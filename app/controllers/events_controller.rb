@@ -1,9 +1,10 @@
+# Provides actions for /events and /events/:id
 class EventsController < ApplicationController
   before_action :authenticate_user!, :only => [:new, :create]
 
   # Create an instance var of all of the events for use in the events#index page
-  # PRE: None
-  # POST: None
+  # PRE:: None
+  # POST:: None
   def index
     @events = Event.all
     @admin_events = @events.select{|event| event.owner == current_user}
@@ -12,8 +13,8 @@ class EventsController < ApplicationController
   end
 
   # Create an instance var of the event with the specified id for the events#show page
-  # PRE: None
-  # POST: Shows the event and sorts it's availability by dates.
+  # PRE:: None
+  # POST:: Shows the event and sorts it's availability by dates.
   def show
     begin
       @event = Event.find(params[:id])
@@ -34,15 +35,15 @@ class EventsController < ApplicationController
   end
 
   # Create an instance var for a new event for the events#new pages
-  # PRE: None
-  # POST: An event object is created
+  # PRE:: None
+  # POST:: An event object is created
   def new
     @event = Event.new
   end
 
   # Define what to do when creating a new event
-  # PRE: None
-  # POST: A new event is created, and availabilities added.
+  # PRE:: None
+  # POST:: A new event is created, and availabilities added.
   def create
 
     @event = Event.new(event_params)
@@ -62,8 +63,8 @@ class EventsController < ApplicationController
   end
 
   # Find and destroy an event. Redirect to events#index.
-  # PRE: The event with the specific id exists
-  # POST: The event is removed
+  # PRE:: The event with the specific id exists
+  # POST:: The event is removed
   def destroy
     @event = Event.find(params[:id])
     @event.destroy if @event.owner == current_user
@@ -73,8 +74,8 @@ class EventsController < ApplicationController
   private
 
   # Define the permitted params for creating a new event
-  # PRE: None
-  # POST: None
+  # PRE:: None
+  # POST:: None
   def event_params
     params.require(:event).permit(:name, :start, :end)
   end

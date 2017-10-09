@@ -6,8 +6,8 @@ class TasksController < ApplicationController
   before_action :owns_event, :only => [:create, :destroy]
 
   # Creates a new task in the database
-  # PRE: None
-  # POST: Either a task is created in the database, or an error is returned to the user
+  # PRE:: None
+  # POST:: Either a task is created in the database, or an error is returned to the user
   def create
     @task = Task.new(params[:task].permit(:name).merge(:event => @event))
     if @task.name.blank?
@@ -21,8 +21,8 @@ class TasksController < ApplicationController
   end
 
   # Deletes a task from the database
-  # PRE: The task is loaded
-  # POST: Either the task is deleted if it existed, or an error is returned to the user
+  # PRE:: The task is loaded
+  # POST:: Either the task is deleted if it existed, or an error is returned to the user
   def destroy
     unless @task.destroy
       flash[:alert] = "Unable to destroy task"
@@ -31,8 +31,8 @@ class TasksController < ApplicationController
   end
 
   # Updates a task in the database (used for both task assignment and name change)
-  # PRE: The task is loaded and the form input is sane
-  # POST: The task is updated
+  # PRE:: The task is loaded and the form input is sane
+  # POST:: The task is updated
   def update
     permitted_params = params[:task].permit(:name, :user)
     if permitted_params.key?("name")
@@ -63,8 +63,8 @@ class TasksController < ApplicationController
   private
 
   # Loads the task model in
-  # PRE: None
-  # POST: Task is loaded or user gets an error
+  # PRE:: None
+  # POST:: Task is loaded or user gets an error
   def load_task
     task_id = params[:id]
     @task = @event.tasks.where(id: task_id).first

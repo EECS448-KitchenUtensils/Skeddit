@@ -8,8 +8,8 @@ class AvailabilitiesController < ApplicationController
   end
 
   # Destroys an availability
-  # PRE: The availability exists
-  # POST: The availability is removed from the database
+  # PRE:: The availability exists
+  # POST:: The availability is removed from the database
   def destroy
     @availability = Availability.find(params[:id])
     event_id = @availability.event.id
@@ -18,8 +18,8 @@ class AvailabilitiesController < ApplicationController
   end
 
   # Removes a user from an availability
-  # PRE: None
-  # POST: User specified will be free of his duty.
+  # PRE:: None
+  # POST:: User specified will be free of his duty.
   def leave
     @availability = Availability.find(params[:availability_id])
     @user = User.find(params[:user_id])
@@ -28,8 +28,8 @@ class AvailabilitiesController < ApplicationController
   end
 
   # Adds a user to an availability
-  # PRE: None
-  # POST: One more user will belong to an availability.
+  # PRE:: None
+  # POST:: One more user will belong to an availability.
   def join
     @availability = Availability.find(params[:availability_id])
     @user = User.find(params[:user_id])
@@ -38,8 +38,8 @@ class AvailabilitiesController < ApplicationController
   end
 
   # Copies availabilities from one day to a new one.
-  # PRE: Days is after last availability in an event
-  # POST: New day will be created with identicly times from date specified.
+  # PRE:: Days is after last availability in an event
+  # POST:: New day will be created with identicly times from date specified.
   def copydays
     @event = Event.find(params[:event_id])
     d_arr = params["date_o"].split('-')
@@ -61,8 +61,8 @@ class AvailabilitiesController < ApplicationController
   end
 
   # Make more availabilities.
-  # PRE: The new start time is after the last availability time.
-  # POST: New availabilities will be added to the event.
+  # PRE:: The new start time is after the last availability time.
+  # POST:: New availabilities will be added to the event.
   def make
     @event = Event.find(params[:event_id])
 
