@@ -1,8 +1,11 @@
+# Provides actions for /events/:event_id/availabilities/:id
 class AvailabilitiesController < ApplicationController
   before_action :authenticate_user!
   before_action :check_format
 
   # Simply redirects back to home page. Required since refreshing after a failed validation will bring you to this index.
+  # PRE:: None
+  # POST:: None
   def index
     redirect_to (events_path)
   end

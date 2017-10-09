@@ -1,6 +1,9 @@
+# ActiveRecord model for Event time slots
+# 
+# Each Availablity 'belongs to' an Event and a User.
+# 
+# If an availability's User or Event is destroyed, so is the Availability.
 class Availability < ApplicationRecord
-  # Each Availablity 'belongs to' an event and a user.
-  # If an availability's user or event is destroyed, so is the availability.
   belongs_to :event
   has_and_belongs_to_many :users
 

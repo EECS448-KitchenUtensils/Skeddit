@@ -1,11 +1,13 @@
+# Devise model for users
+#
+# User can have many Event and Availability.
+#
+# If a user is destroyed, all of their events and availabilities are destroyed as well.
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :rememberable, :trackable, :validatable
-
-  # User can have many events and availabilities.
-  # If a user is destroyed, all of their events and availabilities are destroyed as well.
   has_many :events
   has_and_belongs_to_many :availabilities
 

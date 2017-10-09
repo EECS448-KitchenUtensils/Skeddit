@@ -1,7 +1,10 @@
+# ActiveRecord model for events
+#
+# Every Event belongs to an 'admin' User, and has many availabilities (Availability) and 'participants' (User)
+# through its availabilities.
+#
+# When an Event is destroyed, so are all of its related availabilities
 class Event < ApplicationRecord
-  # Every event belongs to an 'admin' user, and has many availabilites and 'participants' (users)
-  # through its availabilities.
-  # When an event is destroyed, so are all of its related availabilities.
   belongs_to :owner, class_name: :User
   has_many :availabilities
   has_many :tasks, dependent: :destroy
