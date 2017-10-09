@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>README - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
+</script>
+
+<script src="./js/jquery.js"></script>
+<script src="./js/darkfish.js"></script>
+
+<link href="./css/fonts.css" rel="stylesheet">
+<link href="./css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="./index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="./table_of_contents.html#pages">Pages</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+<div class="nav-section">
+  <h3>Table of Contents</h3>
+
+  <ul class="link-list" role="directory">
+    <li><a href="#label-Skeddit">Skeddit</a>
+    <li><a href="#label-Team+Members">Team Members</a>
+    <li><a href="#label-Continued+By">Continued By</a>
+    <li><a href="#label-Installation">Installation</a>
+    <li><a href="#label-Prerequisites">Prerequisites</a>
+    <li><a href="#label-Configuration">Configuration</a>
+    <li><a href="#label-Works+Cited-2FLibraries+Used-3A">Works Cited/Libraries Used:</a>
+    <li><a href="#label-Documentation">Documentation</a>
+    <li><a href="#label-How+to+View+Automatically+Generated+HTML+Documentations">How to View Automatically Generated HTML Documentations</a>
+  </ul>
+</div>
+
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./README_md.html">README</a>
+  
+    <li><a href="./app/assets/config/manifest_js.html">manifest.js</a>
+  
+    <li><a href="./app/assets/javascripts/application_js.html">application.js</a>
+  
+    <li><a href="./app/assets/javascripts/availabilities_coffee.html">availabilities.coffee</a>
+  
+    <li><a href="./app/assets/javascripts/cable_js.html">cable.js</a>
+  
+    <li><a href="./app/assets/javascripts/events_coffee.html">events.coffee</a>
+  
+    <li><a href="./app/assets/javascripts/tasks_coffee.html">tasks.coffee</a>
+  
+    <li><a href="./app/assets/stylesheets/application_scss.html">application.scss</a>
+  
+    <li><a href="./app/assets/stylesheets/availabilities_scss.html">availabilities.scss</a>
+  
+    <li><a href="./app/assets/stylesheets/events_scss.html">events.scss</a>
+  
+    <li><a href="./app/assets/stylesheets/tasks_scss.html">tasks.scss</a>
+  
+    <li><a href="./lib/tasks/rdoc_rake.html">rdoc.rake</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page README.md">
+
+<h1 id="label-Skeddit">Skeddit<span><a href="#label-Skeddit">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+<p>Skeddit is a modular event planner and scheduler created in Ruby on Rails.
+Its simplistic design makes it easy to navigate, create, view, join, and
+manage your events. Skeddit supports account creation, and it can run on
+any machine with access to the same database, and find the same events.</p>
+
+<p><a href="http://skeddit.gitgud-ku.com">Website</a></p>
+
+<h3 id="label-Team+Members">Team Members<span><a href="#label-Team+Members">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p><a href="https://github.com/gagebenne">Gage Benne</a> * Database, Models,
+Login Page</p>
+
+<p><a href="https://github.com/zbruennig">Zachary Bruennig</a> * Validation,
+Error Checking, QA, Controllers</p>
+
+<p><a href="https://github.com/andrew-monroe">Andy Monroe</a> * Documentation
+and Project Generator, resident Rails Guru</p>
+
+<p><a href="https://github.com/masonwilde">Mason Wilde</a> * UI, CSS, Views</p>
+
+<h3 id="label-Continued+By">Continued By<span><a href="#label-Continued+By">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p><a href="https://github.com/aamirani">Armaan Amirani</a></p>
+
+<p><a href="https://github.com/zjcers">Zane Cersovsky</a></p>
+
+<p><a href="https://github.com/jackdweber">Jack Weber</a></p>
+
+<p><a href="https://github.com/twalenczyk">Taylor Walenczyk</a></p>
+
+<h1 id="label-Installation">Installation<span><a href="#label-Installation">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+<h3 id="label-Prerequisites">Prerequisites<span><a href="#label-Prerequisites">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Skeddit was built with Ruby 2.4.1, Rails 5.1.4, and Postgres 9.6.5.
+Previous versions may be unsupported.</p>
+
+<p>To set up Rails with Postgres, follow <a
+href="https://www.digitalocean.com/community/tutorials/how-to-setup-ruby-on-rails-with-postgres">this
+guide</a>.</p>
+
+<h3 id="label-Configuration">Configuration<span><a href="#label-Configuration">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Once your Rails environment is set up, run <code>git clone
+https://github.com/EECS448-KitchenUtensils/Skeddit.git</code></p>
+
+<p>Then, add your database settings into the config/database.yml file.</p>
+
+<p>Finally, run <code>rake db:create</code> then <code>rake db:migrate</code>.</p>
+
+<p>With the databse set up, Skeddit should be ready to run! Type <code>rail
+s</code> to launch the app.</p>
+
+<h3 id="label-Works+Cited-2FLibraries+Used-3A">Works Cited/Libraries Used:<span><a href="#label-Works+Cited-2FLibraries+Used-3A">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p><a href="http://rubyonrails.org/">Rails</a></p>
+
+<p><a href="http://getbootstrap.com/">Bootstrap</a></p>
+
+<p><a href="https://bootswatch.com/">Bootswatch</a></p>
+
+<p><a
+href="https://github.com/EECS448-KitchenUtensils/Skeddit/blob/master/Gemfile">Gemfile
+Gems</a></p>
+
+<p><a href="https://github.com/plataformatec/devise">Devise</a></p>
+
+<p><a href="https://github.com/plataformatec/simple_form">Simple Form</a></p>
+
+<h1 id="label-Documentation">Documentation<span><a href="#label-Documentation">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+<h3 id="label-How+to+View+Automatically+Generated+HTML+Documentations">How to View Automatically Generated HTML Documentations<span><a href="#label-How+to+View+Automatically+Generated+HTML+Documentations">&para;</a> <a href="#top">&uarr;</a></span></h3>
+
+<p>Clone the Skeddit repository to your computer.</p>
+
+<p>Open documentation/git_gud_documentation/index.html to browse the code that
+we wrote.</p>
+
+<p>Open documentation/full_app_documentation/index.html to browse the code for
+this entire app.</p>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://rdoc.github.io/rdoc">RDoc</a> 5.0.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
