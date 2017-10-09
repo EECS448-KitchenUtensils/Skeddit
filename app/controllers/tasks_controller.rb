@@ -1,3 +1,4 @@
+# Provides actions for /events/:event_id/tasks/:id
 class TasksController < ApplicationController
   include EventScoped
   before_action :authenticate_user!

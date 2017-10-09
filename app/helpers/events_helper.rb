@@ -1,3 +1,4 @@
+# Provides extra methods for use with Event objects
 module EventsHelper
 
   # Get a list of the participants available for a specified event at a specified time.
